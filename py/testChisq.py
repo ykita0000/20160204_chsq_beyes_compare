@@ -13,19 +13,20 @@ from ROOT import *
 
 import numpy as np
 
-n = 1000
+N = 1000
+n = 100
 
-stack = np.random.normal(0,1.,(n,1000))
+stack = np.random.normal(0,1.,(N,n))
 
-hists = [ TH1D('h%03d'%i,"",30,-2,2) for i in range(n) ]
-fs = [ TF1('f%03d'%i,"gaus",-2,2) for i in range(n) ]
-h_chisq = TH1D('h_chisq','',50,0,20)
+hists = [ TH1D('h%03d'%i,"",30,-3,3) for i in range(N) ]
+fs = [ TF1('f%03d'%i,"gaus",-2,2) for i in range(N) ]
+h_chisq = TH1D('h_chisq','',50,0,30)
 for i,(f,(hist,data)) in enumerate(zip(fs,(zip(hists,stack)))):
     # print data
     for x in data:
         hist.Fill(x)
     hist.Fit(f)
-    h_chisq.Fill(f.GetChisquare())
+    h_chisq.Fill(f.GetChisquare()/6.)
 
 c = TCanvas("c","",512,512)
 gPad.SetGrid(1)

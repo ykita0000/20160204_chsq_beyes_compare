@@ -18,9 +18,8 @@ def errorFunc(mean=.0,sigma=.5):
 def func(x,a,b,error=0.):
     return a*x+b+error
 
-
 N = 10000
-n = 100
+n = 7
 x = np.random.normal(0.,1.,(N,n))
 
 mean = 0.
@@ -30,7 +29,7 @@ y = map(lambda xx:func(xx,1,0,error=0),x)
 
 g = TGraphErrors(n)
 f = TF1('f','pol1')
-h = TH1D('h','',20,0,2)
+h = TH1D('h','',100,0,8)
 
 for i,(xx,yy) in enumerate(zip(x,y)):
     g.Set(0)
